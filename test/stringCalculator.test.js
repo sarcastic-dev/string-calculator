@@ -27,4 +27,9 @@ describe("String Calculator", () => {
     expect(add("//;\n1;2")).toBe(3);
     expect(add("//#\n4#5#6")).toBe(15);
   });
+
+  test("throws error when negative numbers are included", () => {
+    expect(() => add("1,-2")).toThrow("negatives not allowed: -2");
+    expect(() => add("2,-4,-9")).toThrow("negatives not allowed: -4,-9");
+  });
 });

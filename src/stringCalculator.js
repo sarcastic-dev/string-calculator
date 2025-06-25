@@ -10,10 +10,17 @@ function add(numbers) {
     numbers = rest;
   }
 
-  const parsed = numbers.split(delimiterPattern).map((n) => parseInt(n.trim()));
+  const parsedNumbers = numbers
+    .split(delimiterPattern)
+    .map((n) => parseInt(n.trim()));
 
-  const sum = parsed.reduce((sum, num) => sum + num, 0);
-  return sum;
+  const negatives = parsedNumbers.filter((n) => n < 0);
+  if (negatives.length > 0) {
+    throw new Error(`negatives not allowed: ${negatives.join(",")}`);
+  }
+
+  const totalSum = parsedNumbers.reduce((sum, num) => sum + num, 0);
+  return totalSum;
 }
 
 module.exports = { add };
