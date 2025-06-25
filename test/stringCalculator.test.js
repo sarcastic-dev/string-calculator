@@ -17,4 +17,9 @@ describe("String Calculator", () => {
     expect(add("1,2,3,4")).toBe(10);
     expect(add("5,5,5")).toBe(15);
   });
+
+  test("handles newlines as valid delimiters along with commas", () => {
+    expect(add("1\n2,3")).toBe(6);
+    expect(add("4,5\n6")).toBe(15);
+  });
 });
