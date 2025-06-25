@@ -1,12 +1,18 @@
 function add(numbers) {
-  if (numbers === "") return 0;
+  if (!numbers) return 0;
 
-  const delimiterPattern = /[\n,]/; // Matches comma or newline
-  const rawParts = numbers.split(delimiterPattern); // Split input
-  const trimmedParts = rawParts.map((part) => part.trim()); // Remove extra spaces
-  const parsedNumbers = trimmedParts.map((part) => parseInt(part)); // Convert to integers
+  // Handle custom delimiter
+  let delimiterPattern = /[,\n]/;
+  if (numbers.startsWith("//")) {
+    const [delimiterLine, rest] = numbers.split("\n", 2);
+    const delimiter = delimiterLine.slice(2); // strip "//"
+    delimiterPattern = new RegExp(`[${delimiter}]`);
+    numbers = rest;
+  }
 
-  const sum = parsedNumbers.reduce((acc, num) => acc + num, 0);
+  const parsed = numbers.split(delimiterPattern).map((n) => parseInt(n.trim()));
+
+  const sum = parsed.reduce((sum, num) => sum + num, 0);
   return sum;
 }
 
